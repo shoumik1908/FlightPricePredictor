@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-10-15T12:04:42.417069",
+  "total_records": 35000,
+  "train_samples": 28000,
+  "test_samples": 7000,
+  "models": {
+    "linear_regression": {
+      "name": "Linear Regression (Baseline)",
+      "mae": 409.96,
+      "rmse": 589.61,
+      "r2": 0.8183,
+      "mape": 7.1
+    },
+    "random_forest": {
+      "name": "Random Forest Regressor (Core Model)",
+      "mae": 269.56,
+      "rmse": 356.47,
+      "r2": 0.9336,
+      "mape": 4.87,
+      "n_estimators": 120,
+      "min_samples_leaf": 3
+    }
+  },
+  "mae_improvement_pct": 34.25,
+  "airline_breakdown": {
+    "Air India": {
+      "samples": 3412,
+      "rf_mae": 281.94,
+      "rf_mape": 4.83,
+      "lr_mae": 432.75,
+      "avg_fare": 5718.9
+    },
+    "IndiGo": {
+      "samples": 3588,
+      "rf_mae": 257.8,
+      "rf_mape": 4.92,
+      "lr_mae": 388.29,
+      "avg_fare": 5271.79
+    }
+  },
+  "feature_importances": [
+    {
+      "feature": "days_left",
+      "importance": 0.459
+    },
+    {
+      "feature": "duration",
+      "importance": 0.1199
+    },
+    {
+      "feature": "departure_time_Morning",
+      "importance": 0.0811
+    },
+    {
+      "feature": "departure_time_Evening",
+      "importance": 0.0627
+    },
+    {
+      "feature": "source_city_Mumbai",
+      "importance": 0.057
+    },
+    {
+      "feature": "destination_city_Mumbai",
+      "importance": 0.0533
+    },
+    {
+      "feature": "destination_city_Delhi",
+      "importance": 0.0439
+    },
+    {
+      "feature": "source_city_Delhi",
+      "importance": 0.0406
+    },
+    {
+      "feature": "airline_IndiGo",
+      "importance": 0.0343
+    },
+    {
+      "feature": "departure_time_Late_Night",
+      "importance": 0.0158
+    }
+  ]
+}

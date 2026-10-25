@@ -1,0 +1,122 @@
+{
+  "festivals": [
+    {
+      "name": "Republic Day Weekend",
+      "startDate": "2026-01-24",
+      "endDate": "2026-01-27",
+      "surgeFactor": 0.25,
+      "tag": "National Holiday Rush",
+      "description": "3-day national holiday weekend surge across all metro corridors"
+    },
+    {
+      "name": "Maha Shivratri",
+      "startDate": "2026-02-14",
+      "endDate": "2026-02-16",
+      "surgeFactor": 0.18,
+      "tag": "Religious Pilgrimage & Long Weekend",
+      "description": "Festival travel surge"
+    },
+    {
+      "name": "Holi Festival Week",
+      "startDate": "2026-03-02",
+      "endDate": "2026-03-05",
+      "surgeFactor": 0.35,
+      "tag": "Holi Peak Festive Surge",
+      "description": "High festive demand especially on Mumbai-Delhi and Delhi-Bengaluru routes"
+    },
+    {
+      "name": "Eid ul-Fitr Weekend",
+      "startDate": "2026-03-20",
+      "endDate": "2026-03-23",
+      "surgeFactor": 0.30,
+      "tag": "Festive Peak",
+      "description": "Family homecoming travel surge"
+    },
+    {
+      "name": "Good Friday & Easter Long Weekend",
+      "startDate": "2026-04-03",
+      "endDate": "2026-04-06",
+      "surgeFactor": 0.22,
+      "tag": "Long Weekend Travel",
+      "description": "Metro holiday break travel"
+    },
+    {
+      "name": "Summer Vacation Peak",
+      "startDate": "2026-05-15",
+      "endDate": "2026-06-15",
+      "surgeFactor": 0.15,
+      "tag": "Summer Holiday Demand",
+      "description": "Sustained high summer travel demand"
+    },
+    {
+      "name": "Independence Day Long Weekend",
+      "startDate": "2026-08-14",
+      "endDate": "2026-08-17",
+      "surgeFactor": 0.25,
+      "tag": "Independence Day Weekend",
+      "description": "Extended weekend leisure & family travel"
+    },
+    {
+      "name": "Raksha Bandhan & Janmashtami",
+      "startDate": "2026-08-27",
+      "endDate": "2026-09-04",
+      "surgeFactor": 0.20,
+      "tag": "Festive Surge",
+      "description": "Regional homecoming traffic"
+    },
+    {
+      "name": "Ganesh Chaturthi",
+      "startDate": "2026-09-13",
+      "endDate": "2026-09-17",
+      "surgeFactor": 0.28,
+      "tag": "Maharashtra Festival Rush",
+      "description": "Major surge into and out of Mumbai (BOM)"
+    },
+    {
+      "name": "Gandhi Jayanti Long Weekend",
+      "startDate": "2026-10-02",
+      "endDate": "2026-10-05",
+      "surgeFactor": 0.22,
+      "tag": "Long Weekend Rush",
+      "description": "National holiday 3-day travel spike"
+    },
+    {
+      "name": "Durga Puja & Dussehra",
+      "startDate": "2026-10-18",
+      "endDate": "2026-10-23",
+      "surgeFactor": 0.35,
+      "tag": "Navratri & Dussehra Peak",
+      "description": "High festival travel across all corridors"
+    },
+    {
+      "name": "Diwali, Dhanteras & Bhai Dooj Week",
+      "startDate": "2026-11-06",
+      "endDate": "2026-11-13",
+      "surgeFactor": 0.45,
+      "tag": "Diwali Golden Week Peak Surge",
+      "description": "Highest annual aviation demand spike in India (+40% to +50%)"
+    },
+    {
+      "name": "Chhath Puja",
+      "startDate": "2026-11-14",
+      "endDate": "2026-11-17",
+      "surgeFactor": 0.30,
+      "tag": "Post-Diwali Travel",
+      "description": "Corridor surge connecting Delhi & Mumbai"
+    },
+    {
+      "name": "Christmas & New Year Holiday Season",
+      "startDate": "2026-12-23",
+      "endDate": "2027-01-03",
+      "surgeFactor": 0.40,
+      "tag": "Year-End Holiday Peak",
+      "description": "Peak holiday leisure fares"
+    }
+  ],
+  "weekendSurge": {
+    "friday": 0.12,
+    "saturday": 0.08,
+    "sunday": 0.18,
+    "mondayMorning": 0.15
+  }
+}

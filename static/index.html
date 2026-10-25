@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroPredict | Flight Price Prediction & Flexible Fare Matrix</title>
+  <meta name="description" content="Predict flight prices for Air India and IndiGo between Mumbai, Delhi, and Bengaluru using a Random Forest model with flexible date and time slot comparison.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=3">
+</head>
+<body>
+  <div class="app-background">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">AeroPredict</h1>
+          <p class="brand-subtitle">Domestic Flight Fare Intelligence &middot; Mumbai &bull; Delhi &bull; Bengaluru</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button id="nav-search-btn" class="nav-btn active">Fare Search</button>
+        <button id="nav-metrics-btn" class="nav-btn">Model Benchmarks</button>
+        <button id="nav-calendar-btn" class="nav-btn">Festival Calendar</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- SEARCH SECTION -->
+    <section id="search-section" class="search-section">
+      <div class="search-card glass-panel">
+        <div class="search-card-header">
+          <div class="badge badge-accent">2026 Machine Learning Engine</div>
+          <div class="badge badge-subtle">Trained with 80% Recency Weightage &bull; 60-Day Lookahead</div>
+        </div>
+
+        <form id="fare-search-form" class="search-form" onsubmit="return false;">
+          <!-- Route Selector -->
+          <div class="route-grid">
+            <div class="form-group">
+              <label for="source-city" class="form-label">
+                <span class="label-dot from-dot"></span> From (Departure City)
+              </label>
+              <div class="select-wrapper">
+                <select id="source-city" class="custom-select" required>
+                  <option value="Mumbai" selected>Mumbai (BOM) &middot; Chhatrapati Shivaji Intl</option>
+                  <option value="Delhi">Delhi (DEL) &middot; Indira Gandhi Intl</option>
+                  <option value="Bangalore">Bengaluru (BLR) &middot; Kempegowda Intl</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="swap-wrapper">
+              <button type="button" id="swap-route-btn" class="swap-btn" title="Swap Route">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="form-group">
+              <label for="destination-city" class="form-label">
+                <span class="label-dot to-dot"></span> To (Arrival City)
+              </label>
+              <div class="select-wrapper">
+                <select id="destination-city" class="custom-select" required>
+                  <option value="Delhi" selected>Delhi (DEL) &middot; Indira Gandhi Intl</option>
+                  <option value="Mumbai">Mumbai (BOM) &middot; Chhatrapati Shivaji Intl</option>
+                  <option value="Bangalore">Bengaluru (BLR) &middot; Kempegowda Intl</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Airline & Date Row -->
+          <div class="filter-row">
+            <div class="form-group flex-2">
+              <label class="form-label">Airline Mode</label>
+              <div class="segmented-control" id="airline-segmented">
+                <button type="button" class="segment-btn active" data-airline="BOTH" id="airline-both-btn">
+                  <span>Side-by-Side</span>
+                  <span class="sub-tag">Air India & IndiGo</span>
+                </button>
+                <button type="button" class="segment-btn" data-airline="Air India" id="airline-ai-btn">
+                  <span>Air India</span>
+                  <span class="sub-tag">Full Service</span>
+                </button>
+                <button type="button" class="segment-btn" data-airline="IndiGo" id="airline-6e-btn">
+                  <span>IndiGo</span>
+                  <span class="sub-tag">Low Cost</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group flex-1">
+              <label for="travel-date" class="form-label">Departure Date</label>
+              <div class="date-input-container">
+                <input type="date" id="travel-date" class="custom-date-input" required>
+                <div id="days-left-badge" class="days-left-badge">-- days left</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flexibility & Time of Day Row -->
+          <div class="filter-row">
+            <div class="form-group flex-1">
+              <label class="form-label">Date Flexibility</label>
+              <div class="segmented-control" id="flex-segmented">
+                <button type="button" class="segment-btn" data-flex="0" id="flex-0-btn">
+                  <span>Exact</span>
+                  <span class="sub-tag">1 Date</span>
+                </button>
+                <button type="button" class="segment-btn active" data-flex="1" id="flex-1-btn">
+                  <span>±1 Day</span>
+                  <span class="sub-tag">3 Dates</span>
+                </button>
+                <button type="button" class="segment-btn" data-flex="2" id="flex-2-btn">
+                  <span>±2 Days</span>
+                  <span class="sub-tag">5 Dates</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group flex-2">
+              <label class="form-label">Preferred Time Slot</label>
+              <div class="slot-chips-container" id="time-slot-chips">
+                <button type="button" class="slot-chip active" data-slot="ANY" id="slot-any">Any Time (Grid)</button>
+                <button type="button" class="slot-chip" data-slot="Early_Morning" id="slot-early">Early Morning (00-06)</button>
+                <button type="button" class="slot-chip" data-slot="Morning" id="slot-morning">Morning (06-12)</button>
+                <button type="button" class="slot-chip" data-slot="Afternoon" id="slot-afternoon">Afternoon (12-18)</button>
+                <button type="button" class="slot-chip" data-slot="Evening" id="slot-evening">Evening (18-22)</button>
+                <button type="button" class="slot-chip" data-slot="Night" id="slot-night">Night (22-24)</button>
+                <button type="button" class="slot-chip" data-slot="Late_Night" id="slot-latenight">Late Night (23-04)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit CTA -->
+          <div class="form-actions">
+            <button type="button" id="search-btn" class="search-cta-btn">
+              <span class="btn-text">Predict Fares & Compare Options</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+
+        <div class="model-disclaimer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span>
+            Predictions powered by a Tuned <strong>Random Forest Regressor</strong> ($R^2=0.9336$, MAE: ₹269) trained on 3-month observational trends with 80% time-decay weighting. Real-time calendar surge engine dynamically adjusts for Indian festivals and long weekend travel spikes.
+          </span>
+        </div>
+      </div>
+
+      <!-- RESULTS CONTAINER -->
+      <div id="results-area" class="results-area hidden">
+        <!-- Highlights Bar -->
+        <div class="highlights-grid">
+          <!-- Best Pick Card -->
+          <div class="highlight-card best-pick-card glass-panel" id="best-pick-card">
+            <div class="card-glow"></div>
+            <div class="card-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span>Cheapest Option Found</span>
+            </div>
+            <div class="highlight-details">
+              <div class="highlight-airline" id="cheapest-airline">--</div>
+              <div class="highlight-date-time" id="cheapest-date-time">--</div>
+              <div class="highlight-price" id="cheapest-price">₹0</div>
+              <div class="highlight-meta" id="cheapest-meta">Direct &middot; 2h 15m</div>
+            </div>
+          </div>
+
+          <!-- Savings Card -->
+          <div class="highlight-card savings-card glass-panel">
+            <div class="card-pill pill-savings">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+              <span>Potential Savings</span>
+            </div>
+            <div class="highlight-details">
+              <div class="savings-amount" id="savings-amount">₹0</div>
+              <div class="savings-text" id="savings-description">Compared to your primary date and time preference</div>
+              <div class="savings-badge" id="savings-percent">0% Cheaper</div>
+            </div>
+          </div>
+
+          <!-- Active Surge Factor Card -->
+          <div class="highlight-card surge-card glass-panel">
+            <div class="card-pill pill-surge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+              <span>Calendar Surge Engine</span>
+            </div>
+            <div class="highlight-details">
+              <div class="surge-tag" id="active-surge-tag">Standard Base Fare</div>
+              <div class="surge-desc" id="active-surge-desc">No active holiday or festival surge on primary date</div>
+              <div class="surge-mult" id="active-surge-mult">Base ML Rate (0% Surge)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDE-BY-SIDE AIRLINE COMPARISON (Shown when Both Airlines selected) -->
+        <div id="side-by-side-section" class="side-by-side-section">
+          <h2 class="section-heading">Airline Head-to-Head: Air India vs IndiGo</h2>
+          <div class="comparison-cards-grid">
+            <div class="airline-summary-card glass-panel ai-card" id="ai-summary-card">
+              <div class="airline-header">
+                <div class="airline-badge badge-ai">Air India</div>
+                <span class="airline-type">Full Service Carrier</span>
+              </div>
+              <div class="summary-stat-row">
+                <div class="stat-box">
+                  <span class="stat-label">Lowest Fare</span>
+                  <span class="stat-val" id="ai-lowest-fare">₹0</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-label">Linear Baseline</span>
+                  <span class="stat-val sub-val" id="ai-lr-fare">₹0</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-label">Typical Duration</span>
+                  <span class="stat-val" id="ai-avg-dur">2h 15m</span>
+                </div>
+              </div>
+              <ul class="airline-perks">
+                <li>Includes 15kg checked baggage & cabin carry-on</li>
+                <li>Complimentary hot meal on metro routes</li>
+                <li>Post-merger upgraded Boeing / Airbus fleet</li>
+              </ul>
+            </div>
+
+            <div class="airline-summary-card glass-panel 6e-card" id="6e-summary-card">
+              <div class="airline-header">
+                <div class="airline-badge badge-6e">IndiGo</div>
+                <span class="airline-type">Low Cost Carrier</span>
+              </div>
+              <div class="summary-stat-row">
+                <div class="stat-box">
+                  <span class="stat-label">Lowest Fare</span>
+                  <span class="stat-val" id="6e-lowest-fare">₹0</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-label">Linear Baseline</span>
+                  <span class="stat-val sub-val" id="6e-lr-fare">₹0</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-label">Typical Duration</span>
+                  <span class="stat-val" id="6e-avg-dur">2h 10m</span>
+                </div>
+              </div>
+              <ul class="airline-perks">
+                <li>Punctual point-to-point high frequency network</li>
+                <li>Unbundled economy pricing (pay only for essentials)</li>
+                <li>Largest domestic fleet in India (A320neo / A321neo)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLEXIBLE DATE & TIME HEATMAP GRID -->
+        <div class="grid-section">
+          <div class="grid-header">
+            <div>
+              <h2 class="section-heading">Flexible Fare Matrix (Dates &times; Time Slots)</h2>
+              <p class="section-subtext">Interactive price heatmap. Green cells indicate the most economical booking slots.</p>
+            </div>
+            <div class="grid-legend">
+              <span class="legend-item"><span class="legend-swatch swatch-cheapest"></span> Lowest Fare</span>
+              <span class="legend-item"><span class="legend-swatch swatch-low"></span> Economy Range</span>
+              <span class="legend-item"><span class="legend-swatch swatch-mid"></span> Moderate Demand</span>
+              <span class="legend-item"><span class="legend-swatch swatch-high"></span> Peak / Surged</span>
+            </div>
+          </div>
+
+          <div id="grid-container" class="grid-container glass-panel">
+            <!-- Dynamically populated table/grid -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS DRAWER / TAB -->
+    <section id="metrics-section" class="metrics-section hidden">
+      <div class="metrics-card glass-panel">
+        <div class="metrics-header">
+          <div>
+            <h2 class="section-heading">Model Benchmarks: Random Forest vs Linear Regression</h2>
+            <p class="section-subtext">Empirical validation on 80/20 train/test holdout using time-decay sample weighting.</p>
+          </div>
+          <div class="badge badge-success">Target Achieved: Forest beats Baseline by 34.2%</div>
+        </div>
+
+        <div class="metrics-cards-grid">
+          <div class="metric-summary-card">
+            <span class="metric-title">Mean Absolute Error (MAE)</span>
+            <div class="metric-comparison">
+              <div class="metric-col">
+                <span class="model-name">Random Forest</span>
+                <span class="metric-number highlight-green" id="rf-mae-val">₹269.56</span>
+              </div>
+              <div class="vs-divider">vs</div>
+              <div class="metric-col">
+                <span class="model-name">Linear Baseline</span>
+                <span class="metric-number text-muted" id="lr-mae-val">₹409.96</span>
+              </div>
+            </div>
+            <div class="metric-note">MAE is ₹140.40 lower with Random Forest</div>
+          </div>
+
+          <div class="metric-summary-card">
+            <span class="metric-title">Variance Explained ($R^2$ Score)</span>
+            <div class="metric-comparison">
+              <div class="metric-col">
+                <span class="model-name">Random Forest</span>
+                <span class="metric-number highlight-green" id="rf-r2-val">0.9336</span>
+              </div>
+              <div class="vs-divider">vs</div>
+              <div class="metric-col">
+                <span class="model-name">Linear Baseline</span>
+                <span class="metric-number text-muted" id="lr-r2-val">0.8183</span>
+              </div>
+            </div>
+            <div class="metric-note">Captures non-linear lead time escalation curves</div>
+          </div>
+
+          <div class="metric-summary-card">
+            <span class="metric-title">Root Mean Squared Error (RMSE)</span>
+            <div class="metric-comparison">
+              <div class="metric-col">
+                <span class="model-name">Random Forest</span>
+                <span class="metric-number highlight-green" id="rf-rmse-val">₹356.47</span>
+              </div>
+              <div class="vs-divider">vs</div>
+              <div class="metric-col">
+                <span class="model-name">Linear Baseline</span>
+                <span class="metric-number text-muted" id="lr-rmse-val">₹589.61</span>
+              </div>
+            </div>
+            <div class="metric-note">Significantly reduces large price outliers</div>
+          </div>
+
+          <div class="metric-summary-card">
+            <span class="metric-title">Mean Absolute Percentage Error (MAPE)</span>
+            <div class="metric-comparison">
+              <div class="metric-col">
+                <span class="model-name">Random Forest</span>
+                <span class="metric-number highlight-green" id="rf-mape-val">4.87%</span>
+              </div>
+              <div class="vs-divider">vs</div>
+              <div class="metric-col">
+                <span class="model-name">Linear Baseline</span>
+                <span class="metric-number text-muted" id="lr-mape-val">7.10%</span>
+              </div>
+            </div>
+            <div class="metric-note">Average percentage deviation across all test flights</div>
+          </div>
+        </div>
+
+        <!-- Feature Importance Chart -->
+        <div class="feature-importance-block">
+          <h3 class="block-title">Random Forest Feature Importance Breakdown</h3>
+          <p class="block-sub">Shows relative Gini importance of variables driving predicted fares.</p>
+          <div class="feature-bars-container" id="feature-bars">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Airline Breakdown Table -->
+        <div class="airline-breakdown-block">
+          <h3 class="block-title">Stratified Airline Performance</h3>
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th>Airline</th>
+                <th>Test Samples</th>
+                <th>Avg Fare (INR)</th>
+                <th>Forest MAE</th>
+                <th>Forest MAPE</th>
+                <th>Baseline MAE</th>
+              </tr>
+            </thead>
+            <tbody id="airline-metrics-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR DRAWER / TAB -->
+    <section id="calendar-section" class="calendar-section hidden">
+      <div class="calendar-card glass-panel">
+        <div class="calendar-header">
+          <div>
+            <h2 class="section-heading">Indian Aviation Festival & Weekend Surge Calendar (2026-2027)</h2>
+            <p class="section-subtext">The Hybrid Surge Engine applies dynamic demand multipliers based on Indian gazetted holidays and peak booking windows.</p>
+          </div>
+        </div>
+
+        <div class="festivals-timeline-grid" id="festivals-timeline">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="weekend-rules-box glass-panel">
+          <h3>Standard Weekend Surge Rules</h3>
+          <div class="weekend-rules-grid">
+            <div class="rule-chip">
+              <span class="rule-day">Friday Outbound Rush</span>
+              <span class="rule-factor">+12% Surge</span>
+            </div>
+            <div class="rule-chip">
+              <span class="rule-day">Saturday Leisure</span>
+              <span class="rule-factor">+8% Surge</span>
+            </div>
+            <div class="rule-chip">
+              <span class="rule-day">Sunday Homecoming Rush</span>
+              <span class="rule-factor">+18% Surge</span>
+            </div>
+            <div class="rule-chip">
+              <span class="rule-day">Monday Morning Corporate</span>
+              <span class="rule-factor">+15% Surge (06:00-12:00)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 AeroPredict &middot; Project by Jinay Shah & Shoumik &middot; Advanced ML & Aviation Pricing</p>
+      <div class="footer-links">
+        <span>Random Forest Regressor ($R^2=0.9336$)</span>
+        <span>&bull;</span>
+        <span>Time-Decay Sample Weighting</span>
+        <span>&bull;</span>
+        <span>FastAPI & Modern Vanilla CSS</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js?v=3"></script>
+</body>
+</html>

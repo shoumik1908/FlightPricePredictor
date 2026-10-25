@@ -1,0 +1,338 @@
+{
+  "Bangalore_Delhi_Air India_Afternoon": {
+    "avg_duration": 3.51,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_Air India_Early_Morning": {
+    "avg_duration": 3.7,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_Air India_Evening": {
+    "avg_duration": 3.63,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_Air India_Late_Night": {
+    "avg_duration": 3.5,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_Air India_Morning": {
+    "avg_duration": 3.71,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_Air India_Night": {
+    "avg_duration": 3.6,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_Afternoon": {
+    "avg_duration": 3.61,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_Early_Morning": {
+    "avg_duration": 3.62,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_Evening": {
+    "avg_duration": 3.62,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_Late_Night": {
+    "avg_duration": 3.57,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_Morning": {
+    "avg_duration": 3.57,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_Night": {
+    "avg_duration": 3.62,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_Afternoon": {
+    "avg_duration": 2.61,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_Early_Morning": {
+    "avg_duration": 2.58,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_Evening": {
+    "avg_duration": 2.55,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_Late_Night": {
+    "avg_duration": 2.66,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_Morning": {
+    "avg_duration": 2.56,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_Night": {
+    "avg_duration": 2.5,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_Afternoon": {
+    "avg_duration": 2.55,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_Early_Morning": {
+    "avg_duration": 2.57,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_Evening": {
+    "avg_duration": 2.54,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_Late_Night": {
+    "avg_duration": 2.58,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_Morning": {
+    "avg_duration": 2.6,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_Night": {
+    "avg_duration": 2.76,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_Afternoon": {
+    "avg_duration": 3.51,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_Early_Morning": {
+    "avg_duration": 3.69,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_Evening": {
+    "avg_duration": 3.77,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_Late_Night": {
+    "avg_duration": 3.75,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_Morning": {
+    "avg_duration": 3.6,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_Night": {
+    "avg_duration": 3.61,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_Afternoon": {
+    "avg_duration": 3.67,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_Early_Morning": {
+    "avg_duration": 3.51,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_Evening": {
+    "avg_duration": 3.67,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_Late_Night": {
+    "avg_duration": 3.53,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_Morning": {
+    "avg_duration": 3.65,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_Night": {
+    "avg_duration": 3.5,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_Afternoon": {
+    "avg_duration": 3.02,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_Early_Morning": {
+    "avg_duration": 3.02,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_Evening": {
+    "avg_duration": 3.03,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_Late_Night": {
+    "avg_duration": 3.08,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_Morning": {
+    "avg_duration": 2.94,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_Night": {
+    "avg_duration": 2.88,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_Afternoon": {
+    "avg_duration": 3.14,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_Early_Morning": {
+    "avg_duration": 3.07,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_Evening": {
+    "avg_duration": 2.94,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_Late_Night": {
+    "avg_duration": 2.96,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_Morning": {
+    "avg_duration": 2.97,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_Night": {
+    "avg_duration": 3.01,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_Afternoon": {
+    "avg_duration": 2.54,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_Early_Morning": {
+    "avg_duration": 2.64,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_Evening": {
+    "avg_duration": 2.54,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_Late_Night": {
+    "avg_duration": 2.58,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_Morning": {
+    "avg_duration": 2.54,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_Night": {
+    "avg_duration": 2.6,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_Afternoon": {
+    "avg_duration": 2.51,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_Early_Morning": {
+    "avg_duration": 2.47,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_Evening": {
+    "avg_duration": 2.6,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_Late_Night": {
+    "avg_duration": 2.48,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_Morning": {
+    "avg_duration": 2.54,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_Night": {
+    "avg_duration": 2.58,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_Afternoon": {
+    "avg_duration": 2.95,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_Early_Morning": {
+    "avg_duration": 2.99,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_Evening": {
+    "avg_duration": 3.04,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_Late_Night": {
+    "avg_duration": 3.02,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_Morning": {
+    "avg_duration": 3.11,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_Night": {
+    "avg_duration": 2.94,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_Afternoon": {
+    "avg_duration": 2.99,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_Early_Morning": {
+    "avg_duration": 3.09,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_Evening": {
+    "avg_duration": 3.01,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_Late_Night": {
+    "avg_duration": 3.01,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_Morning": {
+    "avg_duration": 3.06,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_Night": {
+    "avg_duration": 3.06,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_Air India_DEFAULT": {
+    "avg_duration": 3.62,
+    "mode_stops": 0
+  },
+  "Bangalore_Delhi_IndiGo_DEFAULT": {
+    "avg_duration": 3.6,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_Air India_DEFAULT": {
+    "avg_duration": 2.57,
+    "mode_stops": 0
+  },
+  "Bangalore_Mumbai_IndiGo_DEFAULT": {
+    "avg_duration": 2.59,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_Air India_DEFAULT": {
+    "avg_duration": 3.64,
+    "mode_stops": 0
+  },
+  "Delhi_Bangalore_IndiGo_DEFAULT": {
+    "avg_duration": 3.62,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_Air India_DEFAULT": {
+    "avg_duration": 2.99,
+    "mode_stops": 0
+  },
+  "Delhi_Mumbai_IndiGo_DEFAULT": {
+    "avg_duration": 3.01,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_Air India_DEFAULT": {
+    "avg_duration": 2.56,
+    "mode_stops": 0
+  },
+  "Mumbai_Bangalore_IndiGo_DEFAULT": {
+    "avg_duration": 2.54,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_Air India_DEFAULT": {
+    "avg_duration": 3.03,
+    "mode_stops": 0
+  },
+  "Mumbai_Delhi_IndiGo_DEFAULT": {
+    "avg_duration": 3.03,
+    "mode_stops": 0
+  }
+}
