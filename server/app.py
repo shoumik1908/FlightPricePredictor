@@ -6,11 +6,12 @@ calendar surge evaluation, and model metrics comparison.
 """
 
 import os
+import mimetypes
 from datetime import datetime, date
 from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from ml.predictor import FlightFarePredictor, TIME_BINS_ORDER, TIME_BIN_LABELS
@@ -125,21 +126,35 @@ def get_festival_calendar():
         "weekend_surges": predictor.surge_engine.weekend_weights
     }
 
+# Resolve project root (works both locally and in Vercel serverless)
+_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+@app.get("/")
+@app.get("/index.html")
+def serve_index():
+    """Serve the main SPA HTML page."""
+    index_file = os.path.join(_root_dir, "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file, media_type="text/html")
+    return {"message": "Flight Price Prediction API is running. index.html not found."}
+
+@app.get("/static/{filename:path}")
+def serve_static(filename: str):
+    """Serve bundled static assets (JS, CSS, images)."""
+    file_path = os.path.join(_root_dir, "static", filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"Static file not found: {filename}")
+    mime, _ = mimetypes.guess_type(file_path)
+    return FileResponse(file_path, media_type=mime or "application/octet-stream")
+
+@app.get("/favicon.ico")
+def serve_favicon():
+    """Serve favicon if present."""
+    favicon = os.path.join(_root_dir, "favicon.ico")
+    if os.path.exists(favicon):
+        return FileResponse(favicon, media_type="image/x-icon")
+    raise HTTPException(status_code=404, detail="No favicon")
+
 if __name__ == "__main__":
     import uvicorn
-    # Mount static files for local dev only
-    from fastapi.staticfiles import StaticFiles
-    from fastapi.responses import FileResponse
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    static_dir = os.path.join(root_dir, "static")
-    if os.path.exists(static_dir):
-        app.mount("/static", StaticFiles(directory=static_dir), name="static")
-
-    @app.get("/")
-    def serve_index():
-        index_file = os.path.join(root_dir, "index.html")
-        if os.path.exists(index_file):
-            return FileResponse(index_file)
-        return {"message": "Flight Price Prediction API is running."}
-
     uvicorn.run("server.app:app", host="127.0.0.1", port=8000, reload=True)

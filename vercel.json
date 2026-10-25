@@ -2,21 +2,14 @@
   "version": 2,
   "functions": {
     "api/index.py": {
-      "includeFiles": "models/**,data/**",
+      "includeFiles": "models/**,data/**,static/**,index.html",
       "maxDuration": 30
     }
   },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/api/index.py"
     }
   ]
 }
