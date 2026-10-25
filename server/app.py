@@ -126,8 +126,37 @@ def get_festival_calendar():
         "weekend_surges": predictor.surge_engine.weekend_weights
     }
 
-# Resolve project root (works both locally and in Vercel serverless)
-_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+def _find_root_dir() -> str:
+    """Find the project root by trying several strategies in order."""
+    candidates = [
+        "/var/task",                                                        # Vercel Lambda standard
+        os.getcwd(),                                                        # Process working dir
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),       # Relative to server/app.py
+        os.path.dirname(os.path.abspath(__file__)),                        # server/ dir itself
+    ]
+    for path in candidates:
+        if os.path.exists(os.path.join(path, "index.html")):
+            return path
+    return candidates[0]  # fallback to /var/task even if index.html not found yet
+
+_root_dir = _find_root_dir()
+
+@app.get("/debug")
+def debug_paths():
+    """Debug endpoint — shows filesystem layout for troubleshooting."""
+    root_files = []
+    try:
+        root_files = os.listdir(_root_dir)
+    except Exception as e:
+        root_files = [f"ERROR: {e}"]
+    return {
+        "root_dir": _root_dir,
+        "cwd": os.getcwd(),
+        "file": __file__,
+        "root_files": sorted(root_files),
+        "index_html_exists": os.path.exists(os.path.join(_root_dir, "index.html")),
+        "static_exists": os.path.exists(os.path.join(_root_dir, "static")),
+    }
 
 @app.get("/")
 @app.get("/index.html")
