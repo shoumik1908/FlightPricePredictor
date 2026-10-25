@@ -10,8 +10,7 @@ from datetime import datetime, date
 from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+
 from pydantic import BaseModel, Field
 
 from ml.predictor import FlightFarePredictor, TIME_BINS_ORDER, TIME_BIN_LABELS
@@ -41,6 +40,7 @@ class FlexibleSearchRequest(BaseModel):
     time_slot_choice: str = Field(default="ANY") # "ANY" or specific bin name
 
 @app.get("/api/health")
+@app.get("/health")
 def health_check():
     return {
         "status": "healthy",
@@ -52,6 +52,7 @@ def health_check():
     }
 
 @app.get("/api/routes")
+@app.get("/routes")
 def get_routes_and_options():
     return {
         "airports": [
@@ -89,6 +90,7 @@ def get_routes_and_options():
     }
 
 @app.post("/api/flexible-search")
+@app.post("/flexible-search")
 def run_flexible_search(req: FlexibleSearchRequest):
     if req.source_city == req.destination_city:
         raise HTTPException(status_code=400, detail="Source and destination cities must be different.")
@@ -111,28 +113,33 @@ def run_flexible_search(req: FlexibleSearchRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/metrics")
+@app.get("/metrics")
 def get_model_metrics():
     return predictor.metrics
 
 @app.get("/api/festivals")
+@app.get("/festivals")
 def get_festival_calendar():
     return {
         "festivals": predictor.surge_engine.festivals,
         "weekend_surges": predictor.surge_engine.weekend_weights
     }
 
-# Mount static files
-static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
-if os.path.exists(static_dir):
-    app.mount("/static", StaticFiles(directory=static_dir), name="static")
-
-@app.get("/")
-def serve_index():
-    index_file = os.path.join(static_dir, "index.html")
-    if os.path.exists(index_file):
-        return FileResponse(index_file)
-    return {"message": "Flight Price Prediction API is active. UI static files being created."}
-
 if __name__ == "__main__":
     import uvicorn
+    # Mount static files for local dev only
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.responses import FileResponse
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    static_dir = os.path.join(root_dir, "static")
+    if os.path.exists(static_dir):
+        app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+    @app.get("/")
+    def serve_index():
+        index_file = os.path.join(root_dir, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+        return {"message": "Flight Price Prediction API is running."}
+
     uvicorn.run("server.app:app", host="127.0.0.1", port=8000, reload=True)

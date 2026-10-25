@@ -2,14 +2,22 @@
   "version": 2,
   "functions": {
     "api/index.py": {
-      "includeFiles": "models/**,data/**,static/**",
-      "maxDuration": 15
+      "includeFiles": "models/**,data/**",
+      "maxDuration": 30
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.py"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
